@@ -1,0 +1,290 @@
+# global path to the ProteinLatentSpaces repository
+base_dir: ''
+
+res_dir: ${base_dir}/results/
+
+hydra:
+  run:
+    # create a new directory based on date and time for each run
+    dir: ${res_dir}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  job:
+    # write all output to the results directory
+    chdir: true
+
+# global path to the data directory
+data_path: ${base_dir}/data/
+
+# global path to the 
+similarity_file: ${data_path}/annotations/similar.txt
+
+# path to the family dicionary, tries to read from here if reload_families == false
+family_dict_path: ${data_path}/annotations/family_dictionary.txt
+
+# set to false if family dictionary file already exists
+reload_families: false
+
+# the model to investigate
+model_id: 170
+
+# average all different structures of the same protein
+avg_structures: false
+
+# subset based on 
+subset:
+  rank:   # top n proteins
+  threshold:  # all proteins with more than n structures
+  select_tids: # a list of target ids
+
+# dimensionality reduction method
+red_method: autoencoder
+
+# clustering methods
+cluster_methods:
+  - agglomerative
+
+# internal cluster evaluation metrics to save
+metrics:
+  - silhouette
+  - davies
+
+random_seed: 1
+
+reduction:
+  # latent dimension
+  n_dimensions: 40
+  # path to the pretrained autoencoder weights
+  model_path: ${data_path}/autoencoder/ld_40_hd_250_dr_enc_0.8_dr_dec_0.5_lr_0.0001.pt
+  kernel:   # kwarg for sklearn KernelPCA
+  n_neighbors: 15 # kwarg for UMAP
+  min_distance: 0.1  # kwarg for UMAP
+  
+
+clustering:
+  plot: true # plot the development of the evaluation metric
+  graph_cfg:
+    n_neighbors: 500
+    delta: 1
+    t: 50
+  kmeans:
+    n_clusters: 
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 18
+        - 19
+        - 20
+        - 21
+        - 22
+        - 23
+        - 24
+        - 25
+        - 26
+        - 27
+        - 28
+        - 29
+        - 30
+        - 31
+        - 32
+        - 33
+        - 34
+        - 35
+        - 36
+        - 37
+        - 38
+        - 39
+        - 40
+        - 41
+        - 42
+        - 43
+        - 44
+        - 45
+        - 46
+        - 47
+        - 48
+        - 49
+        - 50
+        - 51
+        - 52
+        - 53
+        - 54
+        - 55
+        - 56
+        - 57
+        - 58
+        - 59
+        - 60
+        - 61
+        - 62
+        - 63
+        - 64
+        - 65
+        - 66
+        - 67
+        - 68
+        - 69
+        - 70
+        - 71
+        - 72
+        - 73
+        - 74
+        - 75
+        - 76
+        - 77
+        - 78
+        - 79
+        - 80
+        - 81
+
+    metric: modularity
+
+  agglomerative:
+    n_clusters: ${clustering.kmeans.n_clusters}
+  
+    metric: modularity
+  
+  gaussianmixture:
+    n_clusters: ${clustering.kmeans.n_clusters}
+    
+    metric: modularity
+  
+  meanshift:
+    bandwidth:
+      - auto
+    
+    metric: modularity
+  
+  optics:
+    min_points:
+      - 10
+      - 15
+      - 30
+      - 40
+      - 50
+      - 60
+      - 70
+      - 80
+      - 90
+      - 100
+      - 110
+      - 120
+      - 130
+      - 140
+      - 150
+      - 160
+      - 170
+      - 180
+      - 190
+      - 200
+      - 210
+      - 220
+    
+    metric: modularity
+
+  spectral:
+    n_clusters: ${clustering.kmeans.n_clusters}
+
+    n_neighbors:
+      - 50
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+      - 350
+      - 400
+      - 450
+      - 500
+      - 550
+      - 600
+    
+    metric: modularity
+    
+
+plotting:
+  # can specify multiple to generate different plots
+  dimred:
+    - pca
+
+  colors: 
+    - agglomerative
+
+  family: 
+    - G-protein coupled receptor 1
+    - nuclear hormone receptor
+    - peptidase S1
+    - AGC Ser/Thr protein kinase
+    - CAMK Ser/Thr protein kinase
+    - CMGC Ser/Thr protein kinase
+    - Ser/Thr protein kinase
+    - STE Ser/Thr protein kinase
+    - Tyr protein kinase
+    - alpha-carbonic anhydrase
+    - peptidase M10A
+    - TKL Ser/Thr protein kinase
+    - ARTD/PARP
+    - heat shock protein 90
+    - peptidase A1
+
+  superfamily:
+    - protein kinase
+  
+    
+  subfamily:
+    - NR1
+
+hypotheses: 
+    # here were using the protein families as hypotheses, but we can also use any annotation from annotations.csv
+    - G-protein coupled receptor 1
+    - nuclear hormone receptor
+    - peptidase S1
+    - AGC Ser/Thr protein kinase
+    - CAMK Ser/Thr protein kinase
+    - CMGC Ser/Thr protein kinase
+    - Ser/Thr protein kinase
+    - STE Ser/Thr protein kinase
+    - Tyr protein kinase
+    - alpha-carbonic anhydrase
+    - peptidase M10A
+    - TKL Ser/Thr protein kinase
+    - protein kinase
+    - AB hydrolase
+    - calycin
+    - class I-like SAM-binding methyltransferase
+    - class V-like SAM-binding methyltransferase
+    - NR1
+    - MAP kinase
+    - NR3
+    - STE20
+    - Insulin receptor
+    - SRC
+    - CDC2/CDKX
+    - MAP kinase kinase kinase
+    - PKC
+  
+
+testing:
+  track: false
+  random: true
+  plot: true  # create a histogram of the distribution of hypotheses among clusters
+  plot_ht_only: true  # only include annotations in ${hypotheses} in the barplots
+  metric: ari
+  annotation_path: ${data_path}/annotations/annotations.csv
+  plot_threshold: 1 # bars must be at least this high to show up in the per-cluster barplots, set to >=1 to prevent empty plots
+  filter_by:  # exclude datapoints that have NaNs assigned to this key
+
+
+  
+
