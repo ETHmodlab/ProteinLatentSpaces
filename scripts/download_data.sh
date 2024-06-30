@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#TODO: Download our data
-
 echo ">> Loading ligand files from PDBBind"
 wget http://pdbbind.org.cn/download/PDBbind_v2020_sdf.tar.gz
 tar -xf PDBbind_v2020_sdf.tar.gz -C data/

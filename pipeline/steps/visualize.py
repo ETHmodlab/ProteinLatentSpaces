@@ -80,9 +80,6 @@ class Plotter:
         hue: str
             The column according to which the datapoints are colored
 
-<<<<<<< HEAD
-        plt.rc('legend',fontsize='small')
-=======
         save: bool
             Whether to save the plot in the current directory, default = True
 
@@ -99,22 +96,17 @@ class Plotter:
         s = 10
 
         plt.rc('legend',fontsize=fontsz)
->>>>>>> publication_clean
 
-        if hue.split('+')[0] not in self._labels.columns:
+        if hue is not None and hue.split('+')[0] not in self._labels.columns:
             raise ValueError(f'The property {hue} does not exist in the data')
         
         c = None
         
         if hue == 'tid':
-<<<<<<< HEAD
-            legend = None
-=======
             
->>>>>>> publication_clean
             palette = sns.color_palette(cc.glasbey, n_colors=445)
         
-        else:
+        elif hue is not None:
             legend = 'auto'
             hues = hue.split('+')
         
@@ -143,11 +135,6 @@ class Plotter:
                 palette = ['red', 'blue']
 
             elif self._labels[hue].dtype == 'float64':
-<<<<<<< HEAD
-                palette = 'Blues'
-            else:
-                palette = sns.color_palette(cc.glasbey, n_colors=len(self._labels[hue].unique()))
-=======
 
                 palette = cm.get_cmap('winter_r')
 
@@ -157,21 +144,10 @@ class Plotter:
         else:
             legend=None
             palette=None
->>>>>>> publication_clean
 
         fig, ax = plt.subplots()
 
         legend = None
-<<<<<<< HEAD
-        font = None
-
-        if palette is None:
-
-            ax = sns.scatterplot(dat, x='x', y='y', palette=palette, legend=legend, s=10, zorder=1, ax=ax, c=c)
-        
-        else: 
-            ax = sns.scatterplot(self._labels, x='x', y='y', hue=hue, palette=palette, legend=legend, s=5, zorder=1, ax=ax)
-=======
         font = 'Inter'
 
         if palette is None:
@@ -180,48 +156,16 @@ class Plotter:
         
         else: 
             ax = sns.scatterplot(self._labels, x='x', y='y', hue=hue, palette=palette, legend=legend, s=s, zorder=1, ax=ax)
->>>>>>> publication_clean
 
         if hue is None:
             hue = 'None'
         
-<<<<<<< HEAD
-        if hue == 'tid':
-            plt.title('Proteins (TID)')
-        
-        else:
-            ncols = 1
-            if palette is not None and len(self._labels[hue].unique()) > 15:
-                ncols = 2
-            
-            #fig.set_size_inches(10, 4.8) superfamily
-            #fig.set_size_inches(8, 4.8)
-
-            #if self._labels[hue].dtype == 'bool':
-
-            #    ax.legend(title=None, ncols=ncols, fontsize='x-large', markerscale = .7)
-            
-            #else:
-            #    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=None, 
-            #            ncols=ncols, fontsize= 'x-large', markerscale = .7)
-
-            ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, title=hue, 
-                        ncols=ncols, fontsize= 'x-small', title_fontsize= 'small', markerscale = .5)
-
-        
-
-        ax.set_xlabel(self._axname+'1', fontsize='xx-large', fontname=font)
-        ax.set_ylabel(self._axname+'2', fontsize='xx-large', fontname=font)
-        plt.xticks(fontsize='xx-large')
-        plt.yticks(fontsize='xx-large')
-=======
 
         ax.set_xlabel(self._axname+'1', fontsize=fontsz, fontname=font)
         ax.set_ylabel(self._axname+'2', fontsize=fontsz, fontname=font)
         
         plt.xticks(fontsize=15)
         plt.yticks(fontsize=15)
->>>>>>> publication_clean
 
         for tick in ax.get_xticklabels():
             tick.set_fontname(font)
@@ -239,8 +183,3 @@ class Plotter:
             plt.savefig(f'scatter_red_{self._axname}_color_{hue}.png', dpi=450)
         
         return ax
-
-
-            
-
-    

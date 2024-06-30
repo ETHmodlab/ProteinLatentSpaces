@@ -280,9 +280,9 @@ def perform_correlation_analysis(property: str,
 
         anns_df = anns_df[anns_df['tid'].isin(labels_df['tid'])]
 
-
     for cluster in labels_df[CLUSTER_METHOD].unique():
 
+        plt.figure(figsize=(6.4, 4.8))
         cluster_regression(cluster, property, coords_df, labels_df, anns_df, save)
 
 

@@ -30,9 +30,6 @@ def plot_hypothesis_distribution(cluster: int, cluster_method: str, freq_thresho
     hypotheses: list[str]
         Subset of hypotheses to consider, if None use all in df. Default = None
 
-<<<<<<< HEAD
-def plot_hypothesis_distribution(cluster: int, cluster_method: str, freq_threshold: int, df: pd.DataFrame):
-=======
     Returns
     --------
     bool
@@ -40,7 +37,6 @@ def plot_hypothesis_distribution(cluster: int, cluster_method: str, freq_thresho
     '''
 
     plt.rcParams["figure.figsize"] = [6.4,7]  #8] superfamily
->>>>>>> publication_clean
 
     sub_df = df.loc[df[cluster_method]==cluster, :]
 
@@ -292,12 +288,6 @@ def test_hypotheses(cfg: dict, df: pd.DataFrame):
         for method in cfg.cluster_methods:
             for cluster in df[method].unique():
 
-<<<<<<< HEAD
-                plot_hypothesis_distribution(cluster, method, cfg.testing.plot_threshold, df)
-                plt.title(f'Annotation frequency {method} (Cluster {cluster})')
-                plt.savefig(f'ann_freq_{method}_{cluster}.png', dpi = 450)
-                plt.close()
-=======
                 to_test = None
 
                 if cfg.testing.plot_ht_only:
@@ -311,16 +301,3 @@ def test_hypotheses(cfg: dict, df: pd.DataFrame):
                     plt.tight_layout()
                     plt.savefig(f'ann_freq_{method}_{cluster}.png', dpi = 450)
                     plt.close()
->>>>>>> publication_clean
-
-
-
-
-
-            
-
-            
-
-
-
-    
