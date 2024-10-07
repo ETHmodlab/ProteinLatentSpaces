@@ -155,7 +155,7 @@ def project_cluster(
 
     plt.scatter(X_projected, annotation, c='black', s=20)
 
-    plt.xlabel(r'$c_{\vec{\nabla},}$'+r'$_{}$'.format(cluster),  fontname = 'Inter', fontsize=FONTSZ)
+    plt.xlabel(r'$\tilde{X}$'+r'$_{}$'.format(cluster)+r'$_{,proj}$',  fontname = 'Inter', fontsize=FONTSZ)
     plt.ylabel('# heavy atoms in ligand', fontname = 'Inter', fontsize=FONTSZ)
 
     name = f'cluster_{cluster}_proj_norm.png' if normalize else f'cluster_{cluster}_proj.png'
@@ -211,7 +211,7 @@ def make_latent_space_plots(
     CLUSTER_METHOD: labels_df[CLUSTER_METHOD].values})
 
     # plot the full dataset
-    sns.scatterplot(df, x='PC1', y='PC2', hue=CLUSTER_METHOD, palette=sns.color_palette(cc.glasbey, n_colors=10), legend=None, s=20)
+    sns.scatterplot(df, x='PC1', y='PC2', hue=CLUSTER_METHOD, palette=sns.color_palette(cc.glasbey, n_colors=11), legend=None, s=20)
 
     plt.xlabel('PC1', fontsize=FONTSZ, fontname='Inter')
     plt.ylabel('PC2', fontsize=FONTSZ, fontname='Inter')

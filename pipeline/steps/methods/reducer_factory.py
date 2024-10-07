@@ -3,6 +3,8 @@ from numba import errors
 warnings.simplefilter('ignore', category=errors.NumbaDeprecationWarning)
 
 from sklearn.decomposition import PCA, KernelPCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 from umap import UMAP
 from sklearn.manifold import TSNE
 import torch
@@ -101,13 +103,15 @@ class CombinedReducer(Reducer):
 class PcaReducer(Reducer):
     def __init__(self,
                 n_dimensions: int,
-                random_seed: int):
+                random_seed: int,
+                scale: bool = True):
 
         super().__init__(n_dimensions, random_seed)
         
-        self.reducer = PCA(n_components=self._n_dimensions, random_state=self._random_seed)
-    
-    ###TO-DO: maybe make more features of sklearns PCA accessible
+        if scale:
+            self.reducer = make_pipeline(StandardScaler(), PCA(n_components=self._n_dimensions, random_state=self._random_seed))
+        else:
+            self.reducer = PCA(n_components=self._n_dimensions, random_state=self._random_seed)
 
     def reduce(self,
                 X):

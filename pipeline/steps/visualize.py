@@ -37,7 +37,7 @@ def plot_factory(X: np.ndarray, df: pd.DataFrame, red: str, random_seed: int):
     '''
     
     if red == 'pca':
-        reducer = PcaReducer(2, random_seed)
+        reducer = PcaReducer(2, random_seed, scale=False)
         axname = 'PC'
     elif red == 'umap':
         reducer = UmapReducer(2, 15, 0.1, random_seed)

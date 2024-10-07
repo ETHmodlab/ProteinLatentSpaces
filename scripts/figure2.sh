@@ -35,6 +35,6 @@ python pipeline/run_pipeline.py $ARGUMENTS
 res_dir="${res_parent_dir}/top10_pca"
 
 ARGUMENTS="++base_dir=${base} ++hydra.run.dir=${res_dir} ++red_method=pca ++subset.rank=10 ++clustering.agglomerative.n_clusters=${k_range} 
-++hypotheses=[] ++plotting.family=[] ++plotting.superfamily=[] ++plotting.subfamily=[] ++testing.plot=false"
+++hypotheses=[tid] ++plotting.family=[] ++plotting.superfamily=[] ++plotting.subfamily=[] ++testing.plot=false ++clustering.graph_cfg.t=55"
 
 python pipeline/run_pipeline.py $ARGUMENTS

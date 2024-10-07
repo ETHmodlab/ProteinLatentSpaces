@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA, KernelPCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 import random
 
 from pipeline import ProteinDataset
@@ -63,10 +65,10 @@ def reduce(X: np.ndarray):
 
     if method == 'pca':
 
-        reducer = PCA(random_state=random_seed)
+        reducer = make_pipeline(StandardScaler(), PCA(random_state=random_seed))
         reducer.fit(X)
 
-        return reducer.explained_variance_ratio_
+        return reducer.steps[1][1].explained_variance_ratio_
 
     elif method == 'kernelpca':
 
